@@ -63,7 +63,7 @@ def playerStandings():
     """
     db = connect()
     c = db.cursor()
-    c.execute("SELECT id,name,numwins,totalmatch FROM standings ORDER BY numwins DESC")
+    c.execute("SELECT id,name,numwins,totalmatch FROM standings")
     rows = c.fetchall()
     db.close();
     return rows
@@ -98,4 +98,22 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+    db = connect()
+    c = db.cursor()
+    c.execute("SELECT * FROM Standings;")
+    list_players = c.fetchall()
+    db.commit()
+    db.close()
  
+    pairing = []
+
+    for i, player in enumerate(list_players):
+        if i%2 == 0:
+            #Match = ([(even#Rank), even#Rank_name],[(even#Rank)+1, (even#Rank+1)_name]
+            match = (list_players[i][0],
+                     list_players[i][1],
+                     list_players[i+1][0],
+                     list_players[i+1][1])
+
+            pairing.append(match)
+    return pairing

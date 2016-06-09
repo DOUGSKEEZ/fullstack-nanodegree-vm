@@ -80,9 +80,3 @@ where players.id = winlist.id) as results
 left join gamelog
 on results.id = gamelog.playerid
 order by numwins desc;
-
-
--- Join player id and names of next 2 comptetitors
---create view picklist as
---	SELECT *
---	FROM Standings
